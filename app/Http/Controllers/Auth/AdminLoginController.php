@@ -171,7 +171,7 @@ class AdminLoginController extends Controller
             $result['id'] = $user->id;
             $result['username'] = $user->username;
             $result['nickname'] = $user->nickname;
-            $result['token'] = $user->createToken('FullStack')->accessToken;
+            $result['token'] = $user->createToken(env('APP_NAME', 'cms'))->accessToken;
 
             // 将认证信息写入缓存，这里用hack方法做后台api登录认证
             cache([$result['token'] => $result],60*60*3);
