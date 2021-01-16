@@ -3,15 +3,16 @@ version: "3.3"
 services:
   php:
     build: ./.docker/php
-    working_dir: /var/www/laravel_cms/public
+    working_dir: /var/www/html/public
     volumes:
-      - ./:/var/www/laravel_cms/
+      - ./:/var/www/html/
     ports:
-      - "8010:80"
-  composer:
-    image: composer:1.9.0
-    command: 'composer update'
-    volumes:
-      - ./:/app
-    links:
-      - php
+      - "80:80"
+
+#  composer:
+#    image: composer:1.9.0
+#    command: 'composer update'
+#    volumes:
+#      - ./:/app
+#    links:
+#      - php
