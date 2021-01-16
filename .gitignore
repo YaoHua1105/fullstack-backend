@@ -7,6 +7,14 @@
 /.idea
 .env
 
+/public/js/app.js
+/public/css/app.css
+/public/mix-manifest.json
+.rnd
+
+
+
+
 .env.backup
 .phpunit.result.cache
 Homestead.json
