@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Services\Helper;
+use Illuminate\Support\Facades\Log;
 use Request;
 
 class Controller extends BaseController
@@ -44,6 +45,9 @@ class Controller extends BaseController
             $result['url'] = $url;
             $result['data'] = $data;
             $result['status'] = $status;
+
+           // Log::info('result : 5'.json_encode($result));
+
             return Helper::unsetNull($result);
         } else {
             $result['status'] = $status;

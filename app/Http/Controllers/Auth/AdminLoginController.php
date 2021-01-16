@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\Helper;
 use App\Models\Admin;
 use App\Models\ActionLog;
+use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Client;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
@@ -46,8 +47,13 @@ class AdminLoginController extends Controller
         // 删除认证缓存
         cache([$token[1] => null]);
 
+//        Log::info('auth :'.var_dump($authorization));
+//        Log::info('token :'.var_dump($token));
+
         // 同时退出登录
         $result = Auth::guard('admin')->logout();
+
+        //var_dump($result);
 
         if($result !== false) {
 
@@ -64,6 +70,9 @@ class AdminLoginController extends Controller
     public function login(Request $request)
     {
         $type = $request->json('type');
+
+        //Log::info('type :'.var_dump($type));
+       // dd($request);
 
         switch ($type) {
             case 'account':
@@ -82,6 +91,9 @@ class AdminLoginController extends Controller
                 $loginResult = $this->accountLogin($request);
                 break;
         }
+
+       // Log::info('loginResult :'.json_encode($loginResult));
+       // $loginResult['status'] ='success';
 
         if ($loginResult['status'] === 'success') {
 
@@ -116,6 +128,8 @@ class AdminLoginController extends Controller
         $password = $request->json('password');
         $captcha = $request->json('captcha');
 
+        Log::info('accountLogin : 1');
+
         $getCaptcha = cache('adminCaptcha');
         if(empty($captcha) || ($captcha != $getCaptcha)) {
             return $this->error('验证码错误！');
@@ -128,6 +142,8 @@ class AdminLoginController extends Controller
         if(empty($password)) {
             return $this->error('密码不能为空！');
         }
+
+        Log::info('accountLogin : 2');
 
         $loginResult = Auth::guard('admin')->attempt(['username' => $username, 'password' => $password]);
 
@@ -150,6 +166,8 @@ class AdminLoginController extends Controller
             $log['remark'] = Auth::guard('admin')->user()->username.'登录后台';
             Helper::actionLog($log);
 
+            //Log::info('accountLogin : log '.json_encode($log));
+
             $result['id'] = $user->id;
             $result['username'] = $user->username;
             $result['nickname'] = $user->nickname;
@@ -157,6 +175,11 @@ class AdminLoginController extends Controller
 
             // 将认证信息写入缓存，这里用hack方法做后台api登录认证
             cache([$result['token'] => $result],60*60*3);
+
+            //  Log::info('accountLogin : id '.$result['id']);
+            //  Log::info('accountLogin : username '.$result['username']);
+            //  Log::info('accountLogin : token '.$result['token']);
+           // Log::info('result : 3',$result);
 
             return $this->success('登录成功！','',$result);
         } else {
@@ -169,6 +192,8 @@ class AdminLoginController extends Controller
 
             // 清除验证码
             cache(['adminCaptcha'=>null],60*10);
+
+//            Log::info('accountLogin : 4');
 
             return $this->error('用户名或密码错误！');
         }

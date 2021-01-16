@@ -14,6 +14,10 @@
 
 运行 composer install 安装依赖库
 
+node 安装
+npm install
+npm run dev
+
 命令行下执行数据迁移
 
 第一步：php artisan migrate(您需要将php加入到环境变量)

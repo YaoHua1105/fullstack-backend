@@ -20,14 +20,14 @@
         "laravel/framework": "^7.0",
         "laravel/passport": "^7.5",
         "laravel/tinker": "^2.0",
-        "lcobucci/jwt": "3.3.3",
+
+        "php-amqplib/php-amqplib": "^2.12",
         "lokielse/omnipay-alipay": "^3.0",
         "maatwebsite/excel": "^3.1.17",
         "overtrue/easy-sms": "^1.0",
         "overtrue/pinyin": "^4.0",
         "overtrue/socialite": "^2.0",
         "overtrue/wechat": "^4.1",
-        "php-amqplib/php-amqplib": "^2.12",
         "spatie/laravel-permission": "^3.0",
         "topthink/think-image": "^1.0"
     },
