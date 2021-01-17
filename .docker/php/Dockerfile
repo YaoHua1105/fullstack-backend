@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
     git \
     vim \
     curl \
-    node \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -24,7 +23,9 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd mysqli zi
 
 
 # Get latest Composer
+COPY --from=node:latest /usr/bin/node /usr/bin/node
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 RUN sed -i "s/128M/-1/g" /usr/local/etc/php/php.ini
 RUN cd /var/www/html && composer install && node install
