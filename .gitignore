@@ -7,10 +7,12 @@
 /.idea
 .env
 
+/.rnd
+
 /public/js/app.js
 /public/css/app.css
 /public/mix-manifest.json
-.rnd
+
 
 
 
