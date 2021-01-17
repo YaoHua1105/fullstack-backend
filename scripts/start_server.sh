@@ -17,6 +17,12 @@ sudo chown -R ec2-user:ec2-user /var/www/laravel_cms
 sudo chmod 775 /var/www/laravel_cms/storage
 sudo chmod 775 /var/www/laravel_cms/bootstrap/cache
 
+# 第一步  关闭docker 镜像
+cd /var/www/laravel_cms
+docker-composer build
+docker-composer up -d
+# docker start laravel_cms_php_1
+
 # npm run dev
 # composer update
 # sudo service httpd restart
