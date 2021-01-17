@@ -12,9 +12,12 @@ echo "start server"
 cd /var/www/laravel_cms
 
 # sudo chown -R apache:apache /var/www/laravel1
-# sudo chmod 775 /var/www/laravel1/storage
-# sudo chmod 775 /var/www/laravel1/bootstrap/cache
-npm run dev
-composer update
-sudo service httpd restart
+sudo chown -R ec2-user:ec2-user /var/www/laravel_cms
+
+sudo chmod 775 /var/www/laravel_cms/storage
+sudo chmod 775 /var/www/laravel_cms/bootstrap/cache
+
+# npm run dev
+# composer update
+# sudo service httpd restart
 #php artisan serve --port 80
